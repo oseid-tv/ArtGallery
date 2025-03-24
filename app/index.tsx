@@ -2,11 +2,11 @@ import styled from "styled-components/native";
 import { useFonts } from "expo-font";
 import { Poppins_500Medium, Poppins_700Bold } from "@expo-google-fonts/poppins";
 
-import ScreenTitle from "./components/HomeScreenComponents/ScreenTitle/ScreenTitle.component";
-import ImagesContainer from "./components/HomeScreenComponents/ImagesContainer/ImagesContainer.component";
-import IntroText from "./components/HomeScreenComponents/IntroText/IntroText.component";
-import LogInBtn from "./components/HomeScreenComponents/LogInBtn/LogInBtn.component";
-import SignUpBtn from "./components/HomeScreenComponents/SignUpBtn/SignUpBtn.component";
+import ScreenTitle from "../components/HomeScreenComponents/ScreenTitle/ScreenTitle.component";
+import ImagesContainer from "../components/HomeScreenComponents/ImagesContainer/ImagesContainer.component";
+import IntroText from "../components/HomeScreenComponents/IntroText/IntroText.component";
+import LogInBtn from "../components/HomeScreenComponents/LogInBtn/LogInBtn.component";
+import SignUpBtn from "../components/HomeScreenComponents/SignUpBtn/SignUpBtn.component";
 
 export default function Index() {
   const [fontsLoaded] = useFonts({

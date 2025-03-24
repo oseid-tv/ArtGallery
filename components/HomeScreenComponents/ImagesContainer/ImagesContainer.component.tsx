@@ -10,14 +10,17 @@ const ImagesContainer = () => {
     <ImagesContainerWrapper>
       <TopContainer>
         <SmallImg
-          source={require("../../../../assets/images/home-page-digital-art1.png")}
+          testID="smallImg1"
+          source={require("../../../assets/images/home-page-digital-art1.png")}
         />
         <SmallImg
-          source={require("../../../../assets/images/home-page-digital-art2.png")}
+          testID="smallImg2"
+          source={require("../../../assets/images/home-page-digital-art2.png")}
         />
       </TopContainer>
       <BigImg
-        source={require("../../../../assets/images/home-page-digital-art3.png")}
+        testID="bigImg"
+        source={require("../../../assets/images/home-page-digital-art3.png")}
       />
     </ImagesContainerWrapper>
   );

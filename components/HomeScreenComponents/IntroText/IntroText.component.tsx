@@ -10,7 +10,7 @@ const IntroText = () => {
     return null;
   }
 
-  return <IntroTextWrapper>Become an Artist & Collector</IntroTextWrapper>;
+  return <IntroTextWrapper>Become an Artist or a Collector</IntroTextWrapper>;
 };
 
 export default IntroText;
