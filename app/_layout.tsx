@@ -17,7 +17,20 @@ export default function RootLayout() {
             fontWeight: "bold",
           },
         }}
-      />
+      >
+        <Stack.Screen
+          name="Home"
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="SignUp"
+          options={{
+            headerShown: false,
+          }}
+        />
+      </Stack>
     </Provider>
   );
 }
