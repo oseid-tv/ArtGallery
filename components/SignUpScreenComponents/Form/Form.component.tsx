@@ -6,7 +6,7 @@ import {
   TextInputKeyPressEventData,
   NativeSyntheticEvent,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Icon from "react-native-vector-icons/Entypo";
 import {
   Poppins_300Light,
@@ -49,6 +49,7 @@ const Form = () => {
   });
 
   const { isLoaded, signUp, setActive } = useSignUp();
+  const inputRefs = useRef<Array<TextInput | null>>([]);
 
   const [email, setEmail] = useState("");
   const [fullname, setFullname] = useState("");
@@ -269,13 +270,9 @@ const Form = () => {
                   newCode[index] = text;
                   setCode(newCode);
                   if (text && index < code.length - 1) {
-                    (
-                      this?.[`input${index + 1}`] as unknown as TextInput
-                    )?.focus();
+                    inputRefs.current[index + 1]?.focus();
                   } else if (text === "" && index > 0) {
-                    (
-                      this?.[`input${index - 1}`] as unknown as TextInput
-                    )?.focus();
+                    inputRefs.current[index - 1]?.focus();
                   }
                 }}
                 onKeyPress={({
@@ -286,14 +283,14 @@ const Form = () => {
                       const newCode = [...code];
                       newCode[index - 1] = "";
                       setCode(newCode);
-                      (
-                        this?.[`input${index - 1}`] as unknown as TextInput
-                      )?.focus();
+                      inputRefs.current[index - 1]?.focus();
                     }
                   }
                 }}
                 // @ts-ignore
-                ref={(ref: any) => ((this as any)[`input${index}`] = ref)}
+                ref={(ref: TextInput | null) =>
+                  (inputRefs.current[index] = ref)
+                }
               />
             ))}
           </View>
