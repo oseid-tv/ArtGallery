@@ -35,6 +35,12 @@ export default function RootLayout() {
               headerShown: false,
             }}
           />
+          <Stack.Screen
+            name="Profile"
+            options={{
+              headerShown: false,
+            }}
+          />
         </Stack>
       </Provider>
     </ClerkProvider>

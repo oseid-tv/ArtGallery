@@ -7,7 +7,7 @@ export const FormComponent = styled.View`
 `;
 
 export const Label = styled.Text`
-  font-family: Poppins_40Regular;
+  font-family: Poppins_400Regular;
   color: #fff;
   font-size: 16px;
   margin-top: 25px;
