@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   Alert,
   TextInputKeyPressEventData,
+  NativeSyntheticEvent,
 } from "react-native";
 import React, { useState } from "react";
 import Icon from "react-native-vector-icons/Entypo";
@@ -257,7 +258,7 @@ const Form = () => {
           }}
         >
           <View style={{ flexDirection: "row", marginBottom: 20 }}>
-            {code.map((codePart, index) => {
+            {code.map((codePart, index) => (
               <ConfirmationInput
                 key={index}
                 value={codePart}
@@ -293,8 +294,8 @@ const Form = () => {
                 }}
                 // @ts-ignore
                 ref={(ref: any) => ((this as any)[`input${index}`] = ref)}
-              />;
-            })}
+              />
+            ))}
           </View>
           <VerifyButton onPress={onPressVerify}>
             <LinearGradient
