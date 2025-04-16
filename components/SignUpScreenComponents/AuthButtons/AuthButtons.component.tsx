@@ -1,11 +1,14 @@
-import { View, Text } from "react-native";
 import React from "react";
+import { Wrapper } from "./AuthButtons.style";
+import GoogleAuthBtn from "./GoogleAuthBtn/GoogleAuthBtn.component";
+import AppleAuthBtn from "./AppleAuthBtn/AppleAuthBtn.component";
 
 const AuthButtons = () => {
   return (
-    <View>
-      <Text>AuthButtons</Text>
-    </View>
+    <Wrapper>
+      <GoogleAuthBtn />
+      <AppleAuthBtn />
+    </Wrapper>
   );
 };
 
