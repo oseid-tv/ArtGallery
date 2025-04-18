@@ -30,13 +30,13 @@ export default function RootLayout() {
             }}
           />
           <Stack.Screen
-            name="SignUp"
+            name="signup"
             options={{
               headerShown: false,
             }}
           />
           <Stack.Screen
-            name="Profile"
+            name="profile"
             options={{
               headerShown: false,
             }}

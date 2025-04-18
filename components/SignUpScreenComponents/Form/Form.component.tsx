@@ -66,6 +66,8 @@ const Form = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
 
+  const passwordInputRef = useRef<TextInput>(null);
+
   const [pendingVerification, setPendingVerification] = useState(false);
   const [code, setCode] = useState(["", "", "", "", "", ""]);
 
@@ -152,7 +154,7 @@ const Form = () => {
     dispatch(selectEmailAddress(email));
     dispatch(selectFullname(fullname));
 
-    navigation.navigate("Profile" as never);
+    navigation.navigate("profile" as never);
   };
 
   if (!loaded || error) {
@@ -200,6 +202,7 @@ const Form = () => {
       <Label>Password</Label>
       <PasswordInputWrapper isFocused={isFocusedPassword}>
         <Input
+          ref={passwordInputRef}
           editable={!pendingVerification}
           value={password}
           onChangeText={(password: string) => setPassword(password)}
@@ -218,7 +221,12 @@ const Form = () => {
         />
         <TouchableOpacity
           style={{ padding: 10 }}
-          onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+          onPress={() => {
+            setIsPasswordVisible(!isPasswordVisible);
+            setTimeout(() => {
+              passwordInputRef.current?.focus();
+            }, 0);
+          }}
         >
           <Icon
             name={isPasswordVisible ? "eye-with-line" : "eye"}

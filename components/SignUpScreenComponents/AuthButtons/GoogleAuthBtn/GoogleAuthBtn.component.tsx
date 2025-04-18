@@ -1,7 +1,7 @@
 import React from "react";
 import * as WebBrowser from "expo-web-browser";
 import { useOAuth } from "@clerk/clerk-expo";
-import { useWarmUpBrowswer } from "@/hooks/useWarmUpBrowser";
+import { useWarmUpBrowswer } from "../../../../hooks/useWarmUpBrowser";
 import { ButtonWrapper, Icon } from "../AuthButtons.style";
 import { useNavigation } from "@react-navigation/native";
 import { doc, setDoc } from "firebase/firestore";
@@ -43,7 +43,7 @@ const GoogleAuthBtn = () => {
         dispatch(selectEmailAddress(signUp?.emailAddress));
         dispatch(selectFullname(`${signUp?.firstName} ${signUp?.lastName}`));
 
-        navigation.navigate("Profile" as never);
+        navigation.navigate("profile" as never);
       } else {
         console.log("Failed to sign up");
       }

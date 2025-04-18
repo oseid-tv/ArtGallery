@@ -48,6 +48,8 @@ export const PasswordInputWrapper = styled.View<
   border-color: ${(props) => (props.isFocused ? "#A463F8" : "#fff")};
   border-radius: 5px;
   background-color: ${(props) => (props.isFocused ? "#000" : "transparent")};
+  height: 50px;
+  padding: 0 10px;
 
   ${(props) =>
     props.isFocused &&
