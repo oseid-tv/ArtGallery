@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { Text } from "react-native";
+import { StatusBar } from "react-native";
 
 import Header from "../components/SignUpScreenComponents/Header/Header.Component";
 import Form from "../components/SignUpScreenComponents/Form/Form.component";
@@ -22,4 +22,5 @@ const Container = styled.SafeAreaView`
   height: 100%;
   align-items: center;
   background-color: #1b1b1b;
+  padding-top: ${StatusBar.currentHeight}px;
 `;

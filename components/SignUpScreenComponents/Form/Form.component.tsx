@@ -200,8 +200,24 @@ const Form = () => {
       )}
 
       <Label>Password</Label>
-      <PasswordInputWrapper isFocused={isFocusedPassword}>
-        <Input
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          borderWidth: 1,
+          borderColor: isFocusedPassword ? "#A463F8" : "#fff",
+          borderRadius: 5,
+          backgroundColor: isFocusedPassword ? "#000" : "transparent",
+          height: 50,
+          paddingHorizontal: 10,
+          shadowColor: isFocusedPassword ? "#A463F8" : "transparent",
+          shadowOffset: { width: 0, height: 1 },
+          shadowOpacity: isFocusedPassword ? 0.8 : 0,
+          shadowRadius: 4,
+          elevation: isFocusedPassword ? 5 : 0,
+        }}
+      >
+        <TextInput
           ref={passwordInputRef}
           editable={!pendingVerification}
           value={password}
@@ -211,22 +227,19 @@ const Form = () => {
           secureTextEntry={!isPasswordVisible}
           onFocus={() => setIsFocusedPassword(true)}
           onBlur={() => setIsFocusedPassword(false)}
-          isFocused={isFocusedPassword}
           style={{
             flex: 1,
-            borderColor: "transparent",
-            backgroundColor: "transparent",
-            marginTop: 0,
+            color: "#fff",
+            fontFamily: "Poppins_300Light",
+            fontSize: 13,
+            height: 50,
           }}
         />
         <TouchableOpacity
-          style={{ padding: 10 }}
           onPress={() => {
             setIsPasswordVisible(!isPasswordVisible);
-            setTimeout(() => {
-              passwordInputRef.current?.focus();
-            }, 0);
           }}
+          style={{ padding: 10 }}
         >
           <Icon
             name={isPasswordVisible ? "eye-with-line" : "eye"}
@@ -234,7 +247,7 @@ const Form = () => {
             size={26}
           />
         </TouchableOpacity>
-      </PasswordInputWrapper>
+      </View>
       {passwordInputError && (
         <InputErrorText>{passwordInputError}</InputErrorText>
       )}
