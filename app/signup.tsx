@@ -5,11 +5,13 @@ import Header from "../components/SignUpScreenComponents/Header/Header.Component
 import Form from "../components/SignUpScreenComponents/Form/Form.component";
 import AuthButtons from "../components/SignUpScreenComponents/AuthButtons/AuthButtons.component";
 import LogInLink from "../components/SignUpScreenComponents/LogInLink/LogInLink.Component";
+import { useNavigation } from "@react-navigation/native";
 
 export default function SignUpScreen() {
+  const navigation = useNavigation();
   return (
     <Container>
-      <Header />
+      <Header navigation={navigation} />
       <Form />
       <AuthButtons />
       <LogInLink />

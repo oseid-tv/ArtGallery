@@ -17,3 +17,7 @@ jest.mock("@expo-google-fonts/poppins", () => ({
   Poppins_700Bold: "Poppins_700Bold",
   useFonts: () => [true],
 }));
+
+// Mock react-native-vector-icons
+jest.mock("react-native-vector-icons/AntDesign", () => "Icon");
+jest.mock("react-native-vector-icons/Entypo", () => "Icon");
