@@ -19,5 +19,20 @@ jest.mock("@expo-google-fonts/poppins", () => ({
 }));
 
 // Mock react-native-vector-icons
-jest.mock("react-native-vector-icons/AntDesign", () => "Icon");
-jest.mock("react-native-vector-icons/Entypo", () => "Icon");
+jest.mock("react-native-vector-icons/AntDesign", () => {
+  const React = require("react");
+  const { View } = require("react-native");
+  const Icon = (props) =>
+    React.createElement(View, { testID: "AntDesignIcon", ...props });
+  Icon.displayName = "Icon";
+  return Icon;
+});
+
+jest.mock("react-native-vector-icons/Entypo", () => {
+  const React = require("react");
+  const { View } = require("react-native");
+  const Icon = (props) =>
+    React.createElement(View, { testID: "EntypoIcon", ...props });
+  Icon.displayName = "Icon";
+  return Icon;
+});
