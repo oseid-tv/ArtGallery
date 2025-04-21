@@ -124,6 +124,7 @@ const Form = () => {
 
       setPendingVerification(true);
     } catch (err) {
+      Alert.alert("Error occured, try again");
       console.log(err);
     }
   };
@@ -165,6 +166,7 @@ const Form = () => {
     <FormComponent>
       <Label>Email</Label>
       <Input
+        testID="emailInput"
         editable={!pendingVerification}
         value={email}
         onChangeText={(email: string) => setEmail(email)}
@@ -178,10 +180,15 @@ const Form = () => {
           backgroundColor: isFocusedEmail ? "#000" : "transparent",
         }}
       />
-      {emailInputError && <InputErrorText>{emailInputError}</InputErrorText>}
+      {emailInputError && (
+        <InputErrorText testID="emailInputError">
+          {emailInputError}
+        </InputErrorText>
+      )}
 
       <Label>Full Name</Label>
       <Input
+        testID="fullnameInput"
         editable={!pendingVerification}
         value={fullname}
         onChangeText={(fullname: string) => setFullname(fullname)}
@@ -196,28 +203,15 @@ const Form = () => {
         }}
       />
       {fullnameInputError && (
-        <InputErrorText>{fullnameInputError}</InputErrorText>
+        <InputErrorText testID="fullnameInputError">
+          {fullnameInputError}
+        </InputErrorText>
       )}
 
       <Label>Password</Label>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          borderWidth: 1,
-          borderColor: isFocusedPassword ? "#A463F8" : "#fff",
-          borderRadius: 5,
-          backgroundColor: isFocusedPassword ? "#000" : "transparent",
-          height: 50,
-          paddingHorizontal: 10,
-          shadowColor: isFocusedPassword ? "#A463F8" : "transparent",
-          shadowOffset: { width: 0, height: 1 },
-          shadowOpacity: isFocusedPassword ? 0.8 : 0,
-          shadowRadius: 4,
-          elevation: isFocusedPassword ? 5 : 0,
-        }}
-      >
-        <TextInput
+      <PasswordInputWrapper isFocused={isFocusedPassword}>
+        <Input
+          testID="passwordInput"
           ref={passwordInputRef}
           editable={!pendingVerification}
           value={password}
@@ -227,19 +221,22 @@ const Form = () => {
           secureTextEntry={!isPasswordVisible}
           onFocus={() => setIsFocusedPassword(true)}
           onBlur={() => setIsFocusedPassword(false)}
+          isFocused={isFocusedPassword}
           style={{
             flex: 1,
-            color: "#fff",
-            fontFamily: "Poppins_300Light",
-            fontSize: 13,
-            height: 50,
+            borderColor: "transparent",
+            backgroundColor: "transparent",
+            marginTop: 0,
           }}
         />
         <TouchableOpacity
+          style={{ padding: 10 }}
           onPress={() => {
             setIsPasswordVisible(!isPasswordVisible);
+            setTimeout(() => {
+              passwordInputRef.current?.focus();
+            }, 0);
           }}
-          style={{ padding: 10 }}
         >
           <Icon
             name={isPasswordVisible ? "eye-with-line" : "eye"}
@@ -247,13 +244,18 @@ const Form = () => {
             size={26}
           />
         </TouchableOpacity>
-      </View>
+      </PasswordInputWrapper>
       {passwordInputError && (
-        <InputErrorText>{passwordInputError}</InputErrorText>
+        <InputErrorText testID="passwordInputError">
+          {passwordInputError}
+        </InputErrorText>
       )}
 
       <CheckboxContainer>
-        <TouchableOpacity onPress={() => setIsChecked(!isChecked)}>
+        <TouchableOpacity
+          testID="checkbox"
+          onPress={() => setIsChecked(!isChecked)}
+        >
           <View
             style={{
               height: 24,
