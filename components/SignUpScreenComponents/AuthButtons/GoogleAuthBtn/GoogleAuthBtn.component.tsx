@@ -13,6 +13,7 @@ import {
   selectEmailAddress,
   selectFullname,
 } from "../../../../redux/reducers/Auth";
+import { Alert } from "react-native";
 
 const GoogleAuthBtn = () => {
   useWarmUpBrowswer();
@@ -29,14 +30,19 @@ const GoogleAuthBtn = () => {
       if (createdSessionId && setActive) {
         setActive({ session: createdSessionId });
 
-        await setDoc(doc(db, "users", signUp?.emailAddress as string), {
-          fullname: `${signUp?.firstName} ${signUp?.lastName}`,
-          emailAddress: signUp?.emailAddress,
-          username: "",
-          profileImgUrl: "",
-          authType: "google",
-          creationDate: new Date(),
-        });
+        try {
+          await setDoc(doc(db, "users", signUp?.emailAddress as string), {
+            fullname: `${signUp?.firstName} ${signUp?.lastName}`,
+            emailAddress: signUp?.emailAddress,
+            username: "",
+            profileImgUrl: "",
+            authType: "google",
+            creationDate: new Date(),
+          });
+        } catch (err) {
+          console.error("Failed to store user data:", err);
+          return;
+        }
 
         dispatch(selectAuthType("google"));
         dispatch(selectAuthenticated(true));
@@ -48,6 +54,7 @@ const GoogleAuthBtn = () => {
         console.log("Failed to sign up");
       }
     } catch (err) {
+      Alert.alert("Error occured, try again");
       console.log(err);
     }
   };
