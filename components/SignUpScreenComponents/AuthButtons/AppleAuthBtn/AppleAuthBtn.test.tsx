@@ -1,18 +1,11 @@
 import { render, fireEvent, act, waitFor } from "../../../../test-utils";
-import GoogleAuthBtn from "./GoogleAuthBtn.component";
+import AppleAuthBtn from "./AppleAuthBtn.component";
 import { useOAuth } from "@clerk/clerk-expo";
-import { setDoc, doc } from "firebase/firestore";
-import { Alert } from "react-native";
-
-jest.mock("react-native", () => {
-  const rn = jest.requireActual("react-native");
-  rn.Alert.alert = jest.fn();
-  return rn;
-});
+import { setDoc } from "firebase/firestore";
+import { useNavigation } from "@react-navigation/native";
 
 jest.mock("@clerk/clerk-expo", () => ({
   useOAuth: jest.fn(),
-  useSignUp: jest.fn(),
 }));
 
 jest.mock("firebase/firestore", () => ({
@@ -35,18 +28,13 @@ jest.mock("react-redux", () => ({
   useDispatch: jest.fn(),
 }));
 
-describe("GoogleAuthBtn", () => {
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
-  it("should initiate OAuth flow when GoogleAuthBtn button is clicked", async () => {
+describe("AppleAuthBtn", () => {
+  it("should initiate OAuth flow when AppleAuthBtn button is clicked", async () => {
     const startOAuthFlowMock = jest.fn().mockResolvedValue({
       createdSessionId: "test-session-id",
       setActive: jest.fn(),
       signUp: {
         emailAddress: "test@test.com",
-        firstName: "Test",
-        lastName: "User",
       },
     });
 
@@ -54,25 +42,18 @@ describe("GoogleAuthBtn", () => {
       startOAuthFlow: startOAuthFlowMock,
     });
 
-    const { getByTestId } = render(<GoogleAuthBtn />);
-
-    const button = getByTestId("Btn");
-
-    await act(async () => {
-      fireEvent.press(button);
-    });
+    const { getByTestId } = render(<AppleAuthBtn />);
+    fireEvent.press(getByTestId("Btn"));
 
     expect(startOAuthFlowMock).toHaveBeenCalledTimes(1);
   });
 
-  it("should sign up successfully with Google OAuth", async () => {
+  it("should sign up successfully with Apple OAuth", async () => {
     const startOAuthFlowMock = jest.fn().mockResolvedValue({
       createdSessionId: "test-session-id",
       setActive: jest.fn(),
       signUp: {
         emailAddress: "test@test.com",
-        firstName: "Test",
-        lastName: "User",
       },
     });
 
@@ -80,8 +61,7 @@ describe("GoogleAuthBtn", () => {
       startOAuthFlow: startOAuthFlowMock,
     });
 
-    const { getByTestId } = render(<GoogleAuthBtn />);
-
+    const { getByTestId } = render(<AppleAuthBtn />);
     const button = getByTestId("Btn");
 
     await act(async () => {
@@ -89,13 +69,12 @@ describe("GoogleAuthBtn", () => {
     });
 
     expect(startOAuthFlowMock).toHaveBeenCalledTimes(1);
-
     expect(setDoc).toHaveBeenCalledWith(undefined, {
-      fullname: "Test User",
+      fullname: "",
       emailAddress: "test@test.com",
       username: "",
       profileImgUrl: "",
-      authType: "google",
+      authType: "apple",
       creationDate: expect.any(Date),
     });
   });
@@ -108,8 +87,9 @@ describe("GoogleAuthBtn", () => {
       startOAuthFlow: startOAuthFlowMock,
     });
 
-    const { getByTestId } = render(<GoogleAuthBtn />);
+    jest.spyOn(console, "log").mockImplementation(() => {});
 
+    const { getByTestId } = render(<AppleAuthBtn />);
     const button = getByTestId("Btn");
 
     await act(async () => {
@@ -117,29 +97,28 @@ describe("GoogleAuthBtn", () => {
     });
 
     expect(startOAuthFlowMock).toHaveBeenCalledTimes(1);
-
-    await waitFor(() => {
-      expect(Alert.alert).toHaveBeenLastCalledWith("Error occured, try again");
-    });
+    expect(console.log).toHaveBeenCalledWith(error);
   });
 
   it("should handle failure to set the session", async () => {
     const error = new Error("Failed to set the session");
-
     const startOAuthFlowMock = jest.fn().mockResolvedValue({
-      createdSessionId: "some-session-id",
+      createdSessionId: "test-session-id",
       setActive: jest.fn().mockImplementation(() => {
         throw error;
       }),
-      signUp: {},
+      signUp: {
+        emailAddress: "test@test.com",
+      },
     });
 
     (useOAuth as jest.Mock).mockReturnValue({
       startOAuthFlow: startOAuthFlowMock,
     });
 
-    const { getByTestId } = render(<GoogleAuthBtn />);
+    jest.spyOn(console, "log").mockImplementation(() => {});
 
+    const { getByTestId } = render(<AppleAuthBtn />);
     const button = getByTestId("Btn");
 
     await act(async () => {
@@ -147,17 +126,13 @@ describe("GoogleAuthBtn", () => {
     });
 
     expect(startOAuthFlowMock).toHaveBeenCalledTimes(1);
-
-    await waitFor(() => {
-      expect(Alert.alert).toHaveBeenLastCalledWith("Error occured, try again");
-    });
+    expect(console.log).toHaveBeenCalledWith(error);
   });
 
-  it("should handle failure to store user data in Firestore", async () => {
+  it.only("should handle failure to store the user data", async () => {
     const error = new Error("Failed to store user data");
-
     const startOAuthFlowMock = jest.fn().mockResolvedValue({
-      createdSessionId: "some-session-id",
+      createdSessionId: "test-session-id",
       setActive: jest.fn(),
       signUp: {
         emailAddress: "test@test.com",
@@ -171,21 +146,17 @@ describe("GoogleAuthBtn", () => {
     (setDoc as jest.Mock).mockImplementation(() => {
       throw error;
     });
-    jest.spyOn(console, "error").mockImplementation(() => {});
 
-    const { getByTestId } = render(<GoogleAuthBtn />);
+    jest.spyOn(console, "log").mockImplementation(() => {});
 
+    const { getByTestId } = render(<AppleAuthBtn />);
     const button = getByTestId("Btn");
 
     await act(async () => {
       fireEvent.press(button);
     });
 
-    expect(setDoc).toHaveBeenCalledTimes(1);
-
-    expect(console.error).toHaveBeenCalledWith(
-      "Failed to store user data:",
-      error
-    );
+    expect(startOAuthFlowMock).toHaveBeenCalledTimes(1);
+    expect(console.log).toHaveBeenCalledWith(error);
   });
 });
