@@ -36,6 +36,12 @@ export default function RootLayout() {
             }}
           />
           <Stack.Screen
+            name="signin"
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
             name="profile"
             options={{
               headerShown: false,
