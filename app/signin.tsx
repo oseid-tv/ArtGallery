@@ -11,7 +11,7 @@ export default function SignInScreen() {
   const navigation = useNavigation();
   return (
     <Container>
-      <Header />
+      <Header navigation={navigation} />
       <Form />
       <AuthButtons />
       <SignUpLink />

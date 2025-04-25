@@ -6,7 +6,7 @@ const LogInBtn = () => {
   const navigation = useNavigation();
 
   return (
-    <TouchableOpacity onPress={() => navigation.navigate("SignIn" as never)}>
+    <TouchableOpacity onPress={() => navigation.navigate("signin" as never)}>
       <AuthBtn
         colors={["#B24E9D", "#7E3BA1"]}
         start={{ x: 0, y: 0 }}
