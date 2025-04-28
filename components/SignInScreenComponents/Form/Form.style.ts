@@ -47,7 +47,7 @@ export const PasswordInputWrapper = styled.View<
   border-width: 1px;
   border-color: ${(props) => (props.isFocused ? "#A463F8" : "#fff")};
   border-radius: 5px;
-  background-color: ${(props) => (props.isFocused ? "#1f2937" : "#fff")};
+  background-color: ${(props) => (props.isFocused ? "#000" : "transparent")};
 
   ${(props) =>
     props.isFocused &&
@@ -59,4 +59,32 @@ export const PasswordInputWrapper = styled.View<
     `}
 `;
 
-export const PasswordInput = styled(Input)``;
+export const InputErrorText = styled.Text`
+  font-family: Poppins_300Light;
+  color: red;
+  font-size: 15px;
+  margin-top: 5px;
+`;
+
+export const SignInButton = styled.TouchableOpacity.attrs({
+  testID: "SignInButton",
+})`
+  margin-top: 20px;
+  border-radius: 8px;
+  shadow-color: #000;
+  shadow-offset: 0px 4px;
+  shadow-opacity: 0.5;
+  shadow-radius: 20px;
+  elevation: 8;
+  weight: 100%;
+  height: 60px;
+  align-self: center;
+`;
+
+export const SignInButtonText = styled.Text`
+  color: #fff;
+  font-size: 18px;
+  text-align: center;
+  margin: 10px;
+  font-family: Poppins_400Regular;
+`;
