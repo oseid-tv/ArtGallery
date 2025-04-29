@@ -174,7 +174,7 @@ const Form = () => {
           {passwordInputError}
         </InputErrorText>
       )}
-      <SignInButton onPress={handleSignIn}>
+      <SignInButton onPress={onSignInPress}>
         <LinearGradient
           colors={["#B24E9D", "#7E3BA1"]}
           start={{ x: 0, y: 0 }}
@@ -187,9 +187,6 @@ const Form = () => {
         >
           <SignInButtonText>Sign In</SignInButtonText>
         </LinearGradient>
-      </SignInButton>
-      <SignInButton onPress={onSignInPress}>
-        <SignInButtonText>Sign Up</SignInButtonText>
       </SignInButton>
     </FormComponent>
   );
