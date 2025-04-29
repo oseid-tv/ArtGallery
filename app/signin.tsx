@@ -14,7 +14,7 @@ export default function SignInScreen() {
       <Header navigation={navigation} />
       <Form />
       <AuthButtons />
-      <SignUpLink />
+      <SignUpLink navigation={navigation} />
     </Container>
   );
 }
