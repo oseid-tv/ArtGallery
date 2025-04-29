@@ -19,13 +19,13 @@ import { Alert } from "react-native";
 
 WebBrowser.maybeCompleteAuthSession();
 
-const GoogleAuthBtn = () => {
+const AppleAuthBtn = () => {
   useWarmUpBrowswer();
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const user = useUser();
   const { startOAuthFlow } = useOAuth({
-    strategy: "oauth_google",
+    strategy: "oauth_apple",
   });
   const handleSignIn = async () => {};
 
@@ -44,7 +44,7 @@ const GoogleAuthBtn = () => {
           dispatch(selectFullname(data.fullname));
           dispatch(selectProfileImgUrl(data.profileImgUrl));
           dispatch(selectUsername(data.username));
-          dispatch(selectAuthType("google"));
+          dispatch(selectAuthType("apple"));
           dispatch(selectAuthenticated(true));
           navigation.navigate("profile" as never);
         } else {
@@ -57,13 +57,13 @@ const GoogleAuthBtn = () => {
     })();
   }, [user]);
 
-  const googleSignin = async () => {
+  const appleSignin = async () => {
     try {
       const { createdSessionId, setActive } = await startOAuthFlow();
 
       if (createdSessionId && setActive) {
         setActive({ session: createdSessionId });
-        dispatch(selectAuthType("google"));
+        dispatch(selectAuthType("apple"));
         dispatch(selectAuthenticated(true));
       } else {
         console.log("failed to sign in");
@@ -75,10 +75,10 @@ const GoogleAuthBtn = () => {
   };
 
   return (
-    <ButtonWrapper onPress={googleSignin}>
-      <Icon name="google" color="#fff" size={30} />
+    <ButtonWrapper onPress={appleSignin}>
+      <Icon name="apple1" color="#fff" size={30} />
     </ButtonWrapper>
   );
 };
 
-export default GoogleAuthBtn;
+export default AppleAuthBtn;
